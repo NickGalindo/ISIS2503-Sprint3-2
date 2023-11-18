@@ -31,7 +31,7 @@ async def getUserSensitive(username: str, pool: MySQLConnectionPool) -> List:
     __cursor = __db.cursor()
 
     try:
-        __cursor.execute("SELECT auth.users.username, auth.users.nombre, auth.users.cedula, auth.users.ubicacion, auth.users.password FROM auth.users WHERE auth.users.username = %s;", (username))
+        __cursor.execute("SELECT auth.users.username, auth.users.nombre, auth.users.cedula, auth.users.ubicacion, auth.users.password FROM auth.users WHERE auth.users.username = %s;", (username,))
     except Exception as e:
         print(Fore.RED + "ERROR: MySql query failed")
         print(e)
@@ -53,7 +53,7 @@ async def getUser(username: str, pool: MySQLConnectionPool) -> List:
     __cursor = __db.cursor()
 
     try:
-        __cursor.execute("SELECT auth.users.username, auth.users.nombre, auth.users.cedula, auth.users.ubicacion FROM auth.users WHERE auth.users.username = %s;", (username))
+        __cursor.execute("SELECT auth.users.username, auth.users.nombre, auth.users.cedula, auth.users.ubicacion FROM auth.users WHERE auth.users.username = %s;", (username,))
     except Exception as e:
         print(Fore.RED + "ERROR: MySql query failed")
         print(e)
