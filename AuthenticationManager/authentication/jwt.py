@@ -1,4 +1,3 @@
-import redis
 from manager.load_config import CONFIG
 from typing import Dict, Any
 
