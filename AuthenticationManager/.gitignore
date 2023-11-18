@@ -1,0 +1,13 @@
+env/
+*.o
+*.d
+*.run
+*__pycache__*
+*.csv
+testing/
+*.zip
+results/
+results*
+data/
+pyrightconfig.json
+config.yaml
