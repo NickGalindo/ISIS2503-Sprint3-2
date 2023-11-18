@@ -5,7 +5,7 @@ from typing import Dict, Any
 from datetime import datetime, timedelta
 
 from typing import Annotated
-from fastapi import Depends, Form, HTTPException, status
+from fastapi import Depends, Form, HTTPException, Request, status
 from pydantic import BaseModel
 
 from fastapi.security import OAuth2PasswordBearer
@@ -102,12 +102,14 @@ async def decodeRefreshToken(refresh_token: str) -> Dict:
     return await decryptPayload(decoded_token)
 
 # Refresh Tokens
-async def refreshAccessToken(redis_connection_pool: redis.ConnectionPool, token: Annotated[str, Depends(extractRefreshToken)]):
+async def refreshAccessToken(request: Request, token: Annotated[str, Depends(extractRefreshToken)]):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Couldn't validate credentials",
         headers={"WWW-Authenticate": "Bearer"}
     )
+
+    redis_connection_pool = request.app.state.redisConnectionPool
 
     if cache.checkJwtBlacklist(token, redis_connection_pool):
         raise credentials_exception
