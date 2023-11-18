@@ -65,6 +65,7 @@ async def decryptPayload(data: Dict) -> Dict:
     for key in data:
         if key == "exp":
             continue
+        print(key)
         val_encoded = base64.b64decode(data[key].encode("UTF-8"))
         data[key] = AESGCM(base64.b64decode(CONFIG["PAYLOAD_KEY"])).decrypt(data[:12], data[12:], b"").decode()
 
