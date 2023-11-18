@@ -114,7 +114,9 @@ async def refreshAccessToken(request: Request, token: Annotated[str, Depends(ext
     if cache.checkJwtBlacklist(token, redis_connection_pool):
         raise credentials_exception
 
+    print("ssssss")
     data: Dict = await decodeRefreshToken(token)
+    print("aaaaaaa")
 
     calc_time_exp = data["exp"]
 
