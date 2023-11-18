@@ -61,12 +61,14 @@ async def createRefreshToken(data: Dict, expires_delta: timedelta = timedelta(we
 
 # Decode Tokens
 async def decryptPayload(data: Dict) -> Dict:
+    print("wdnedjnkn")
     for key in data:
         if key == "exp":
             continue
         val_encoded = base64.b64decode(data[key].encode("UTF-8"))
         data[key] = AESGCM(base64.b64decode(CONFIG["PAYLOAD_KEY"])).decrypt(data[:12], data[12:], b"").decode()
 
+    print("qpoejfionr")
     return data
 
 async def decodeAccessToken(token: Annotated[str, Depends(OAUTH2_SCHEME)]) -> Dict[str, Any]:
@@ -95,8 +97,10 @@ async def decodeRefreshToken(refresh_token: str) -> Dict:
     try:
         decoded_token = jwt.decode(refresh_token, CONFIG["REFRESH_SECRET_KEY"], algorithms=[CONFIG["ENCRYPT_ALGORITHM"]])
     except jwt.ExpiredSignatureError:
+        print("ppspspsps")
         raise credentials_exception
     except jwt.InvalidTokenError:
+        print("owswoskokde")
         raise credentials_exception
 
     return await decryptPayload(decoded_token)
