@@ -7,7 +7,7 @@ from fastapi.security.oauth2 import OAuth2PasswordRequestForm
 
 from passlib.context import CryptContext
 
-from authentication.jwt import JwtToken, createAccessToken, decodeAccessToken
+from authentication.jwt import JwtToken, createAccessToken, decodeAccessToken, createRefreshToken
 
 from mysql.connector.pooling import MySQLConnectionPool
 from repository import dbconnect
@@ -112,7 +112,7 @@ async def loginUser(request: Request, form_data: Annotated[OAuth2PasswordRequest
         }
     )
 
-    refresh_token = await createAccessToken(
+    refresh_token = await createRefreshToken(
         data={
             "username": user.username,
             "nombre": user.nombre,
