@@ -1,7 +1,8 @@
 from typing import Annotated, Dict
 from fastapi import APIRouter, Depends
 
-from authentication.user import loginUser, registerUser, getCurrentUser, User
+from authentication.user import loginUser, registerUser, getCurrentUser
+from authentication.models import User
 from authentication.jwt import JwtToken, refreshAccessToken
 
 router = APIRouter()

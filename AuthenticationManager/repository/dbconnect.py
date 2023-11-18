@@ -2,7 +2,7 @@ from typing import List
 from colorama import Fore
 from mysql.connector.pooling import MySQLConnectionPool
 
-from authentication.user import User
+from authentication.models import User
 
 async def registerUser(usr: User, password: str, pool: MySQLConnectionPool):
     __db = pool.get_connection()

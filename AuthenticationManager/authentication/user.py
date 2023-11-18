@@ -4,7 +4,6 @@ from colorama import Fore
 
 from fastapi import Depends, Form, HTTPException, Request, status
 from fastapi.security.oauth2 import OAuth2PasswordRequestForm
-from pydantic import BaseModel
 
 from passlib.context import CryptContext
 
@@ -13,13 +12,7 @@ from authentication.jwt import JwtToken, createAccessToken, decodeAccessToken
 from mysql.connector.pooling import MySQLConnectionPool
 from repository import dbconnect
 
-# Base user class
-class User(BaseModel):
-    username: str
-    nombre: str
-    cedula: str
-    ubicacion: str
-
+from authentication.models import User
 
 # Hashing
 PWD_CONTEXT = CryptContext(schemes=["bcrypt"], deprecated="auto")
